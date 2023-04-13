@@ -4,15 +4,17 @@
       {{ menuItem.name }}
       <span v-if="menuItem.level === 3"> 12 </span>
     </div>
-    <ul
+    <transition name="menu">
+      <ul
       class="submenu"
       v-if="menuItem.children"
       v-show="isExpanded || !(menuItem.level === 1)"
-    >
-      <template v-for="(subItem, index) in menuItem.children" :key="index">
-        <MenuItem :menuItem="subItem" />
-      </template>
-    </ul>
+      >
+        <template v-for="(subItem, index) in menuItem.children" :key="index">
+          <MenuItem :menuItem="subItem" />
+        </template>
+      </ul>
+    </transition>
   </li>
 </template>
 
@@ -47,5 +49,14 @@ const toggleExpanded = () => {
 }
 .submenu li .submenu li {
   color: gold;
+}
+.menu-enter-active,
+.menu-leave-active {
+  transition: all 0.5s ease;
+}
+.menu-enter-from,
+.menu-leave-to {
+  opacity: 0;
+  height: 0;
 }
 </style>
