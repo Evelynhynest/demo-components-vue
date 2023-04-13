@@ -4,6 +4,7 @@
     <!-- <Directory /> -->
     <DraggableList />
     <SimpleCarousel />
+    <StepsProgress />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 // import Directory from "./components/Menu/Directory.vue";
 import DraggableList from "./components/Draggable/DraggableList.vue";
 import SimpleCarousel from "./components/Carousel/SimpleCarousel.vue";
+import StepsProgress from "./components/StepsProgress/StepsProgress.vue";
 const a = [
   {
     F_id: "0-2018-0-f1c6f8fc-a734-38c8-97b5-c738a8c8b7f3",
