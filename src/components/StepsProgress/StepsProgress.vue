@@ -41,6 +41,7 @@ const goStage = (value) => {
       border: 2px solid #333;
       color: #333;
       font-weight: bold;
+      transition: all 1s;
       
       &.finished {
         color: #007aff;
@@ -52,6 +53,7 @@ const goStage = (value) => {
       width: 8vw;
       height: 2vh;
       background-color: #333;
+      transition: all 1s;
       &.finished {
         background-color: #007aff;
       }
