@@ -6,6 +6,7 @@
     <!-- <SimpleCarousel /> -->
     <!-- <StepsProgress /> -->
     <demo />
+    <BookDirec />
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 // import SimpleCarousel from "./components/Carousel/SimpleCarousel.vue";
 // import StepsProgress from "./components/StepsProgress/StepsProgress.vue";
 import demo from './components/Popover/demo.vue'
+import BookDirec from './components/test/BookDirec.vue'
 </script>
 
 <style>

@@ -1,58 +1,49 @@
 <template>
-  <teleport to='body' :disabled="showPopover">
-    <div class="popover-container" ref="popoverContainerRef">
-      <div class="popover" ref="popoverRef" v-show="showPopover" id="pop-0">
-        <slot name="reference" v-if="showRefer"></slot>
-        <slot></slot>
-      </div>
+  <teleport to="body" :disabled="!showPopover">
+    <div class="popover" ref="popoverRef" v-show="showPopover" @click="togglePopover">
+      <slot name="reference"></slot>
+      <slot></slot>
     </div>
   </teleport>
-  <!-- <div class="popover-container" ref="popoverContainerRef">
-    <div class="popover">
-      <PopTrigger>
-        <slot></slot>
-      </PopTrigger>
-      <PopContent>
-  
-      </PopContent>
-    </div>
-  </div> -->
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-// import PopContent from "./PopContent.vue";
-// import PopTrigger from "./PopTrigger.vue";
 
 const props = defineProps({
   trigger: {
     type: String,
-    default: 'hover'
-  }
-})
+    default: "hover",
+  },
+});
 
 const showPopover = ref(false);
-const showRefer = ref(true);
 
 const popoverRef = ref(null);
-const popoverContainerRef = ref(null);
 
 const referEl = ref(null);
-const parentEl = ref(null)
+const parentEl = ref(null);
 
-const openPopover = () => {
+const togglePopover = () => {
   showPopover.value = !showPopover.value;
 };
 
+const clickOutside = (e) => {
+  if(!e.target.contains(popoverRef.value) && e.target !== referEl.value) {
+    showPopover.value = false
+  }
+}
+
 onMounted(() => {
-  // console.log("element:", popoverRef.value.firstElementChild);
-  console.log("element:", popoverContainerRef.value.parentElement);
+  // console.log("popoverRef:", popoverRef.value.parentElement);
   referEl.value = popoverRef.value.firstElementChild;
-  referEl.value.setAttribute('refer-pop-id', referEl.value.id);
-  referEl.value.addEventListener("click", openPopover);
-  parentEl.value = popoverContainerRef.value.parentElement
-  parentEl.value.appendChild(referEl.value)
-  showRefer.value = false
+  referEl.value.addEventListener('click', togglePopover)
+  // console.log('referEl', referEl.value);
+  parentEl.value = popoverRef.value.parentElement
+  const nextSibling = referEl.value.parentElement.nextElementSibling
+  // console.log('nextElementSibling', nextSibling, nextSibling.parentElement);
+  parentEl.value.insertBefore(referEl.value, nextSibling)
+  document.documentElement.addEventListener('click', clickOutside)
 });
 </script>
 
@@ -65,16 +56,6 @@ onMounted(() => {
   height: 100px;
   background-color: aliceblue;
   border-radius: 12px;
-  // inset: 367px auto auto 1534px;
-  // :deep(.inner) {
-  //   position: absolute;
-  //   top: 20px;
-  //   left: 40px;
-  //   width: 40px;
-  //   height: 20px;
-  //   inset: -10px;
-  //   background-color: aliceblue;
-  //   cursor: pointer;
-  // }
+  inset: 45px 15px;
 }
 </style>

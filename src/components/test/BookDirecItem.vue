@@ -8,7 +8,8 @@
       </li>
     </template>
     <template v-else>
-      <li class="menu-item">{{ chapter.F_chapter_name }}</li>
+      <li class="menu-item" v-if="chapter.F_user_create">{{ chapter.F_chapter_name }}</li>
+      <li class="menu-item" v-else>{{ chapter.F_chapter_name }}</li>
     </template>
   </template>
 </template>
